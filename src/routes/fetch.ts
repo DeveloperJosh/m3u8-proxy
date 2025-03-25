@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 const router = Router();
 const debug = debugLib('proxy:debug');
-const cache = new NodeCache({ stdTTL: 600 });
+const cache = new NodeCache({ stdTTL: 600 });  // 600 seconds = 10 minutes
 
 const SECRET_KEY = process.env.SECRET_KEY || 'update-this-secret';
 
