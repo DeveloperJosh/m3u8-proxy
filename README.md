@@ -1,3 +1,5 @@
+## No updates/fixes until October 2025 
+
 # m3u8-proxy
 
 Join the [discord](https://discord.gg/88ArBFRcY8) for support
