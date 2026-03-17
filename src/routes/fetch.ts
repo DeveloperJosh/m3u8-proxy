@@ -11,7 +11,7 @@ const cache = new NodeCache({ stdTTL: 600 });  // 600 seconds = 10 minutes
 
 const SECRET_KEY = process.env.SECRET_KEY || 'update-this-secret';
 
-const BLOCKED_DOMAINS = ['animerealm.in']; // Please selfhost or you will be added here. If you want to be removed, please contact me with proof of selfhosting.
+const BLOCKED_DOMAINS = ['animerealm.in', 'i.animepahe.si']; // Please selfhost or you will be added here. If you want to be removed, please contact me with proof of selfhosting.
 
 function isBlocked(url: string): boolean {
   try {
