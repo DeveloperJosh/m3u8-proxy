@@ -1,4 +1,6 @@
-## No updates/fixes until October 2025 
+## Important Notice: Blocking Websites Using This Proxy
+
+I will start blocking websites that misuse this proxy for their own sites. Please self-host this proxy; the provided proxy URLs are for demonstration purposes only and not intended for production use.
 
 # m3u8-proxy
 
