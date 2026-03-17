@@ -11,6 +11,17 @@ const cache = new NodeCache({ stdTTL: 600 });  // 600 seconds = 10 minutes
 
 const SECRET_KEY = process.env.SECRET_KEY || 'update-this-secret';
 
+const BLOCKED_DOMAINS = ['animerealm.in']; // Please selfhost or you will be added here. If you want to be removed, please contact me with proof of selfhosting.
+
+function isBlocked(url: string): boolean {
+  try {
+    const hostname = new URL(url).hostname;
+    return BLOCKED_DOMAINS.some(domain => hostname.includes(domain));
+  } catch {
+    return false;
+  }
+}
+
 /** 
  * generateSignedUrl 
  * - Creates a signature for a resourceId
@@ -63,6 +74,11 @@ router.get('/', async (req: Request, res: Response) => {
 
   if (!url || typeof url !== 'string') {
     return res.status(400).json({ error: 'No URL provided' });
+  }
+
+  if (isBlocked(url)) {
+    debug(`Blocked request to domain: ${new URL(url).hostname}`);
+    return res.status(403).json({ error: 'Access to this domain is blocked' });
   }
 
   try {
@@ -133,6 +149,11 @@ router.get('/segment/resource', async (req: Request, res: Response) => {
     return res.status(404).json({ error: 'Resource not found or expired' });
   }
 
+  if (isBlocked(realUrl)) {
+    debug(`Blocked request to domain: ${new URL(realUrl).hostname}`);
+    return res.status(403).json({ error: 'Access to this domain is blocked' });
+  }
+
   try {
     debug(`Fetching actual resource from: ${realUrl}`);
 
@@ -156,6 +177,11 @@ router.get('/image', async (req: Request, res: Response) => {
     const { url, ref } = req.query;
     if (!url || typeof url !== 'string') {
         return res.status(400).json({ error: 'No URL provided' });
+    }
+
+    if (isBlocked(url)) {
+        debug(`Blocked request to domain: ${new URL(url).hostname}`);
+        return res.status(403).json({ error: 'Access to this domain is blocked' });
     }
 
     try {
